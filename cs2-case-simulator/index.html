@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CS2 Case Simulator — симулятор открытия кейсов</title>
+  <meta name="referrer" content="no-referrer">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" data-nav="cases">
+      <span class="brand-logo">CS2</span>
+      <span class="brand-text">Case Simulator</span>
+    </div>
+    <nav class="tabs">
+      <button class="tab active" data-nav="cases">Кейсы</button>
+      <button class="tab" data-nav="inventory">Инвентарь <span class="badge" id="invCount">0</span></button>
+      <button class="tab" data-nav="stats">Статистика</button>
+    </nav>
+    <div class="wallet">
+      <button class="icon-btn" id="soundBtn" title="Звук">🔊</button>
+      <div class="balance" title="Баланс">
+        <span class="balance-label">Баланс</span>
+        <span class="balance-value" id="balance">$0.00</span>
+      </div>
+      <button class="btn btn-green" id="topupBtn" title="Бесплатно пополнить баланс">+ $50</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Список кейсов -->
+    <section class="view" id="view-cases">
+      <div class="view-head">
+        <h1>Кейсы CS2</h1>
+        <input type="search" id="caseSearch" class="input" placeholder="Поиск кейса или скина…">
+      </div>
+      <div class="case-grid" id="caseGrid"></div>
+    </section>
+
+    <!-- Открытие кейса -->
+    <section class="view hidden" id="view-case">
+      <div class="case-head">
+        <button class="btn btn-ghost" data-nav="cases">← Все кейсы</button>
+        <div class="case-title">
+          <img id="caseImg" alt="">
+          <div>
+            <h1 id="caseName"></h1>
+            <div class="muted" id="caseMeta"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roulette-wrap" id="rouletteWrap">
+        <div class="roulette-idle" id="rouletteIdle">
+          <img id="caseImgBig" alt="">
+        </div>
+        <div class="strips" id="strips"></div>
+      </div>
+
+      <div class="controls">
+        <div class="qty" id="qty">
+          <span class="muted">Количество:</span>
+          <button data-q="1" class="active">1</button>
+          <button data-q="2">2</button>
+          <button data-q="3">3</button>
+          <button data-q="4">4</button>
+          <button data-q="5">5</button>
+        </div>
+        <button class="btn btn-open" id="openBtn">Открыть</button>
+        <label class="toggle">
+          <input type="checkbox" id="fastMode">
+          <span>Быстрое открытие</span>
+        </label>
+      </div>
+      <div class="hint muted">Пробел — открыть кейс. Стоимость = цена кейса + ключ ($2.49).</div>
+
+      <h2 class="section-title">Содержимое кейса</h2>
+      <div class="odds" id="odds"></div>
+      <div class="item-grid" id="caseContents"></div>
+    </section>
+
+    <!-- Инвентарь -->
+    <section class="view hidden" id="view-inventory">
+      <div class="view-head">
+        <h1>Инвентарь</h1>
+        <div class="inv-tools">
+          <span class="muted" id="invValue"></span>
+          <select id="invSort" class="input">
+            <option value="new">Сначала новые</option>
+            <option value="price">По цене</option>
+            <option value="rarity">По редкости</option>
+          </select>
+          <select id="invFilter" class="input">
+            <option value="all">Все редкости</option>
+            <option value="rare">★ Ножи и перчатки</option>
+            <option value="covert">Тайное</option>
+            <option value="classified">Засекреченное</option>
+            <option value="restricted">Запрещённое</option>
+            <option value="milspec">Армейское</option>
+          </select>
+          <button class="btn btn-ghost" id="sellCheapBtn">Продать дешевле $1</button>
+          <button class="btn btn-red" id="sellAllBtn">Продать всё</button>
+        </div>
+      </div>
+      <div class="item-grid" id="invGrid"></div>
+      <div class="empty hidden" id="invEmpty">Инвентарь пуст. Откройте пару кейсов!</div>
+    </section>
+
+    <!-- Статистика -->
+    <section class="view hidden" id="view-stats">
+      <div class="view-head">
+        <h1>Статистика</h1>
+        <button class="btn btn-red" id="resetBtn">Сбросить прогресс</button>
+      </div>
+      <div class="stat-cards" id="statCards"></div>
+      <h2 class="section-title">Распределение выпадений</h2>
+      <div class="dist" id="dist"></div>
+      <h2 class="section-title">Лучшие дропы</h2>
+      <div class="item-grid" id="bestDrops"></div>
+    </section>
+  </main>
+
+  <!-- Модальное окно результата -->
+  <div class="modal hidden" id="resultModal">
+    <div class="modal-box">
+      <div class="modal-title" id="resultTitle">Вы получили</div>
+      <div class="result-list" id="resultList"></div>
+      <div class="modal-actions">
+        <button class="btn btn-red" id="resultSellAll">Продать всё</button>
+        <button class="btn btn-ghost" id="resultKeep">Забрать</button>
+        <button class="btn btn-open" id="resultAgain">Открыть ещё</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно содержимого редкого предмета -->
+  <div class="modal hidden" id="rareModal">
+    <div class="modal-box wide">
+      <div class="modal-title" id="rareTitle">Редкие особые предметы</div>
+      <div class="item-grid small" id="rareList"></div>
+      <div class="modal-actions"><button class="btn btn-ghost" data-close>Закрыть</button></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <footer class="footer muted">
+    Фанатский симулятор. Шансы соответствуют официально опубликованным Valve (0.26% на нож/перчатки).
+    Цены — примерные и не отражают реальный рынок. Изображения — Steam CDN. Не связан с Valve.
+  </footer>
+
+  <script src="data/cases.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
