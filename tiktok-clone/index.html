@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>TikTok — Смотри, снимай, делись</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">
+        <svg width="118" height="28" viewBox="0 0 118 42" fill="none"><path d="M11.5 0C11.5 0 14.5 12 23 17C31.5 22 36 21.5 36 21.5V12.5C36 12.5 32 13 27 9C22 5 21 0 21 0H11.5Z" fill="#25F4EE"/><path d="M9 2C9 2 12 14 20.5 19C29 24 33.5 23.5 33.5 23.5V14.5C33.5 14.5 29.5 15 24.5 11C19.5 7 18.5 2 18.5 2H9Z" fill="#FE2C55"/><path d="M6.5 4C6.5 4 9.5 16 18 21C26.5 26 31 25.5 31 25.5V16.5C31 16.5 27 17 22 13C17 9 16 4 16 4H6.5Z" fill="white"/></svg>
+        <span class="logo-text">TikTok</span>
+      </div>
+      <nav class="top-tabs">
+        <button class="tab active" data-tab="foryou">Рекомендации</button>
+        <button class="tab" data-tab="following">Подписки</button>
+        <button class="tab hide-mobile">LIVE</button>
+      </nav>
+    </div>
+    <div class="header-center">
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="Поиск" />
+        <button class="search-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="btn-upload" id="uploadBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Загрузить
+      </button>
+      <button class="icon-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 6 9 6 9H0s6-2 6-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
+      <button class="icon-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></button>
+      <img class="avatar-sm" src="https://i.pravatar.cc/100?img=12" alt="me" />
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="side-nav">
+        <a class="side-link active" href="#"><span class="side-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.1 1 12h3v9h6v-6h4v6h6v-9h3L12 2.1z"/></svg></span> Рекомендации</a>
+        <a class="side-link" href="#"><span class="side-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span> Поиск</a>
+        <a class="side-link" href="#"><span class="side-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span> Друзья</a>
+        <a class="side-link" href="#"><span class="side-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></span> Подписки</a>
+        <a class="side-link" href="#"><span class="side-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></span> LIVE</a>
+        <a class="side-link" href="#" id="profileLink"><span class="side-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span> Профиль</a>
+        <button class="side-link btn-upload-side" id="uploadBtn2"><span class="side-icon">+</span> Загрузить</button>
+      </nav>
+
+      <div class="following-list">
+        <h4>Подписки</h4>
+        <div id="followingAvatars"></div>
+      </div>
+
+      <div class="sidebar-footer">
+        <p>Компания Программа Условия Конфиденциальность</p>
+        <p>© 2026 TikTok Clone</p>
+        <div class="kbd-hint">
+          <span><kbd>↑</kbd><kbd>↓</kbd> навигация</span>
+          <span><kbd>L</kbd> лайк</span>
+          <span><kbd>M</kbd> звук</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Feed -->
+    <main class="feed-wrapper">
+      <div class="feed-container" id="feedContainer">
+        <!-- Videos injected by JS -->
+      </div>
+
+      <!-- Desktop nav arrows -->
+      <div class="feed-nav">
+        <button id="prevBtn" class="nav-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg></button>
+        <button id="nextBtn" class="nav-arrow"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></button>
+      </div>
+    </main>
+
+    <!-- Right info (desktop) -->
+    <aside class="right-info hide-mobile">
+      <div class="right-card">
+        <h3>В тренде</h3>
+        <div id="trendingList"></div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Comments Drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="comments-drawer" id="commentsDrawer">
+    <div class="drawer-header">
+      <h3><span id="commentCount">0</span> комментариев</h3>
+      <button class="icon-btn" id="closeDrawer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="comments-list" id="commentsList"></div>
+    <div class="comment-input-wrap">
+      <input id="commentInput" placeholder="Добавить комментарий..." />
+      <button id="sendComment">Отправить</button>
+    </div>
+  </div>
+
+  <!-- Share Modal -->
+  <div class="modal-overlay" id="shareOverlay"></div>
+  <div class="modal" id="shareModal">
+    <div class="modal-header">
+      <h3>Поделиться</h3>
+      <button class="icon-btn" id="closeShare"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="share-grid">
+      <button class="share-item"><span class="share-icon" style="background:#25F4EE">🔗</span>Копировать ссылку</button>
+      <button class="share-item"><span class="share-icon" style="background:#FE2C55">✉️</span>Сообщение</button>
+      <button class="share-item"><span class="share-icon" style="background:#00f2ea">📱</span>WhatsApp</button>
+      <button class="share-item"><span class="share-icon" style="background:#1877F2">f</span>Facebook</button>
+      <button class="share-item"><span class="share-icon" style="background:#1DA1F2">𝕏</span>Twitter</button>
+      <button class="share-item"><span class="share-icon" style="background:#000">✉️</span>Embed</button>
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay" id="uploadOverlay"></div>
+  <div class="modal upload-modal" id="uploadModal">
+    <div class="modal-header">
+      <h3>Загрузить видео</h3>
+      <button class="icon-btn" id="closeUpload"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="upload-area" id="uploadArea">
+      <div class="upload-icon">📤</div>
+      <h4>Выберите видео для загрузки</h4>
+      <p>Перетащите файл или нажмите кнопку</p>
+      <p class="upload-hint">MP4, WebM, до 60 сек. 9:16 рекомендуем</p>
+      <input type="file" id="fileInput" accept="video/*" hidden />
+      <button class="btn-primary" id="pickFile">Выбрать файл</button>
+      <div class="upload-preview" id="uploadPreview"></div>
+      <div class="upload-form" id="uploadForm" style="display:none">
+        <input id="upCaption" placeholder="Описание #хэштег @упоминание" />
+        <input id="upSong" placeholder="Название звука" value="оригинальный звук" />
+        <button class="btn-primary" id="publishBtn">Опубликовать</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div class="modal-overlay" id="profileOverlay"></div>
+  <div class="modal profile-modal" id="profileModal">
+    <div class="profile-cover"></div>
+    <div class="profile-info">
+      <img class="profile-avatar" src="https://i.pravatar.cc/150?img=12" />
+      <h2>@you</h2>
+      <p class="profile-name">Твой профиль</p>
+      <div class="profile-stats">
+        <div><b id="pFollowing">128</b><span>Подписки</span></div>
+        <div><b id="pFollowers">1.2M</b><span>Подписчики</span></div>
+        <div><b id="pLikes">8.4M</b><span>Лайки</span></div>
+      </div>
+      <p class="profile-bio">Создаю клон TikTok на вайбе 🚀 | Кодю 24/7 | React & Vanilla JS</p>
+      <button class="btn-outline">Редактировать профиль</button>
+    </div>
+    <div class="profile-tabs">
+      <button class="active">Видео</button><button>Лайки</button><button>Закладки</button>
+    </div>
+    <div class="profile-grid" id="profileGrid"></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
